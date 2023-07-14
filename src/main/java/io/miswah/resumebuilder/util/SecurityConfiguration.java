@@ -22,7 +22,11 @@ public class SecurityConfiguration  {
         http
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers(new AntPathRequestMatcher("/home")).permitAll()
-                        .anyRequest().authenticated());
+                        .anyRequest().authenticated())
+                .formLogin(withDefaults());
+
+        // .httpBasic(withDefaults()) for popup login form
+
         return http.build();
     }
 
