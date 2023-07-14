@@ -4,16 +4,16 @@ package io.miswah.resumebuilder.models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "User")
+@Table(name = "_user")
 public class User {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private int id;
 
-    @Column(name = "userName")
+    @Column(name = "user_name")
     private String userName;
 
     @Column(name="password")
