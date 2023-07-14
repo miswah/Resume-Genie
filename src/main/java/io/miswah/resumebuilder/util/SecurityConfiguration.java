@@ -21,7 +21,7 @@ public class SecurityConfiguration  {
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers(new AntPathRequestMatcher("/home")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/view/**")).permitAll()
                         .anyRequest().authenticated())
                 .formLogin(withDefaults());
 
