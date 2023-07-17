@@ -2,6 +2,9 @@ package io.miswah.resumebuilder.models;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "user_profile")
 public class UserProfile {
@@ -35,11 +38,16 @@ public class UserProfile {
     @Column(name = "phone")
     private String phoneNumber;
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "experience_id")
+    List<Experience> experienceList = new ArrayList<>();
+
     //Constructors
     public UserProfile() {
     }
 
-    public UserProfile(int selectedTemplate, String summary, String userName, String firstName, String lastName, String currentDesignation, String email, String phoneNumber) {
+    public UserProfile(int id, int selectedTemplate, String summary, String userName, String firstName, String lastName, String currentDesignation, String email, String phoneNumber, List<Experience> experienceList) {
+        this.id = id;
         this.selectedTemplate = selectedTemplate;
         this.summary = summary;
         this.userName = userName;
@@ -48,6 +56,7 @@ public class UserProfile {
         this.currentDesignation = currentDesignation;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.experienceList = experienceList;
     }
 
     //Getters and Setters

@@ -1,0 +1,92 @@
+package io.miswah.resumebuilder.models;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+import java.time.LocalDate;
+
+@Entity
+@Table(name = "experience")
+public class Experience {
+
+    @Id
+    @Column(name = "id")
+    private int id;
+
+    @Column(name = "company")
+    private String company;
+
+    @Column(name = "designation")
+    private String designation;
+
+    @Column(name = "start_date")
+    private LocalDate startDate;
+
+    @Column(name = "end_date")
+    private LocalDate endDate;
+
+    @Column(name = "details", length = 655)
+    private String details;
+
+    public Experience() {
+    }
+
+    public Experience(int id, String company, String designation, LocalDate startDate, LocalDate endDate, String details) {
+        this.id = id;
+        this.company = company;
+        this.designation = designation;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.details = details;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getDesignation() {
+        return designation;
+    }
+
+    public void setDesignation(String designation) {
+        this.designation = designation;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
+    }
+}
