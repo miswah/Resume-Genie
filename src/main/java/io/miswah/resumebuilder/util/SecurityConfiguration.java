@@ -22,6 +22,7 @@ public class SecurityConfiguration  {
         http
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers(new AntPathRequestMatcher("/view/**")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/resume-resources/**")).permitAll() //enable static resource access for resume-resources folder
                         .anyRequest().authenticated())
                 .formLogin(withDefaults());
 
