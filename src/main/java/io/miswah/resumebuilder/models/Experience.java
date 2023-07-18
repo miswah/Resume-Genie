@@ -30,16 +30,20 @@ public class Experience {
     @Column(name = "details", length = 655)
     private String details;
 
+    @Column(name = "is_current_job")
+    private Boolean isCurrentJob;
+
     public Experience() {
     }
 
-    public Experience(int id, String company, String designation, LocalDate startDate, LocalDate endDate, String details) {
+    public Experience(int id, String company, String designation, LocalDate startDate, LocalDate endDate, String details, Boolean isCurrentJob) {
         this.id = id;
         this.company = company;
         this.designation = designation;
         this.startDate = startDate;
         this.endDate = endDate;
         this.details = details;
+        this.isCurrentJob = isCurrentJob;
     }
 
     public int getId() {
@@ -88,5 +92,26 @@ public class Experience {
 
     public void setDetails(String details) {
         this.details = details;
+    }
+
+    public Boolean getIsCurrentJob() {
+        return isCurrentJob;
+    }
+
+    public void setCurrentJob(Boolean currentJob) {
+        isCurrentJob = currentJob;
+    }
+
+    @Override
+    public String toString() {
+        return "Experience{" +
+                "id=" + id +
+                ", company='" + company + '\'' +
+                ", designation='" + designation + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", details='" + details + '\'' +
+                ", isCurrentJob=" + isCurrentJob +
+                '}';
     }
 }
