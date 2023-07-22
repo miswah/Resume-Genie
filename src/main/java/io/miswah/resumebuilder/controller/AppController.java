@@ -8,7 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import java.security.Principal;
 import java.util.Optional;
 
 
@@ -25,20 +27,38 @@ public class AppController {
 
 
     @GetMapping("/edit")
-    public String edit(){
-        return "Edit page";
+    public String edit(Model model, Principal principal){
+        UserProfile userProfile = getUserProfile(principal.getName());
+        model.addAttribute("userId", principal.getName());
+        model.addAttribute("userProfile", userProfile);
+        return "profile-edit";
+    }
+
+    @PostMapping("/edit")
+    public String postEdit(Model mode, Principal principal){
+
+
+        return "redirect:/view/"+principal.getName();
     }
 
     @GetMapping("/view/{userId}")
     public String view(@PathVariable String userId, Model model) {
 
+       UserProfile userProfile = getUserProfile(userId);
+
+        model.addAttribute("userId", userId);
+        model.addAttribute("userProfile", userProfile);
+        return "resume-templates/"+userProfile.getSelectedTemplate()+"/index";
+    }
+
+
+
+    private UserProfile getUserProfile (String userId){
         Optional<UserProfile> userProfile = userProfileRepository.findByUserName(userId);
 
         userProfile.orElseThrow(RuntimeException::new);
 
-        model.addAttribute("userId", userId);
-        model.addAttribute("userProfile", userProfile.get());
-        return "resume-templates/"+userProfile.get().getSelectedTemplate()+"/index";
+        return userProfile.get();
     }
 
 
