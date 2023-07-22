@@ -5,6 +5,12 @@
     <title>Profile</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <style>
+        .input-group{
+        margin-top: 10px;
+        }
+    </style>
 </head>
 <body data-bs-theme="dark">
     <h2 th:text="${userId} + '\'s Profile'">Profile</h2>
@@ -19,6 +25,26 @@
                     <span class="input-group-text">First and last name</span>
                     <input type="text" aria-label="First name" class="form-control" th:field="*{firstName}">
                     <input type="text" aria-label="Last name" class="form-control" th:field="*{lastName}">
+                </div>
+
+                <div class="input-group">
+                    <span class="input-group-text">Summary</span>
+                    <textarea class="form-control" aria-label="With textarea" rows="10" th:field="*{summary}"></textarea>
+                </div>
+
+                <div class="input-group">
+                    <span class="input-group-text" id="current-designation">Current Designation</span>
+                    <input type="text" class="form-control" placeholder="Username" aria-label="Current Designation" aria-describedby="current-designation" th:field="*{currentDesignation}" >
+                </div>
+
+                <div class="input-group">
+                    <span class="input-group-text" id="email">Email @</span>
+                    <input type="text" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="email" th:field="*{email}">
+                </div>
+
+                <div class="input-group">
+                    <span class="input-group-text" id="Phone"><i class="bi bi-telephone-fill"> Phone</i></span>
+                    <input type="text" class="form-control" placeholder="Phone" aria-label="Phone" aria-describedby="phone" th:field="*{phoneNumber}">
                 </div>
             </div>
             <div class="col-lg-2 col-md-1 col-sm-0"></div>
