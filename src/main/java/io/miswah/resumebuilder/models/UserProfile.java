@@ -45,11 +45,15 @@ public class UserProfile {
     @ElementCollection(targetClass = String.class)
     List<String> skills = new ArrayList<>();
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "eduction_id")
+    List<Education> educationList = new ArrayList<>();
+
     //Constructors
     public UserProfile() {
     }
 
-    public UserProfile(int id, int selectedTemplate, String summary, String userName, String firstName, String lastName, String currentDesignation, String email, String phoneNumber, List<Experience> experienceList, List<String> skills) {
+    public UserProfile(int id, int selectedTemplate, String summary, String userName, String firstName, String lastName, String currentDesignation, String email, String phoneNumber, List<Experience> experienceList, List<String> skills, List<Education> educationList) {
         this.id = id;
         this.selectedTemplate = selectedTemplate;
         this.summary = summary;
@@ -61,6 +65,7 @@ public class UserProfile {
         this.phoneNumber = phoneNumber;
         this.experienceList = experienceList;
         this.skills = skills;
+        this.educationList = educationList;
     }
 
     //Getters and Setters
@@ -149,6 +154,14 @@ public class UserProfile {
         this.skills = skills;
     }
 
+    public List<Education> getEducationList() {
+        return educationList;
+    }
+
+    public void setEducationList(List<Education> educationList) {
+        this.educationList = educationList;
+    }
+
     @Override
     public String toString() {
         return "UserProfile{" +
@@ -163,6 +176,7 @@ public class UserProfile {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", experienceList=" + experienceList +
                 ", skills=" + skills +
+                ", educationList=" + educationList +
                 '}';
     }
 }

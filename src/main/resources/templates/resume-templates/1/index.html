@@ -75,8 +75,8 @@
 			</div>
 			
 			<div class="sectionContent">
-				<ul class="keySkills" th:each="skill : ${userProfile.skills}">
-					<li th:text="${skill}">A Key Skill</li>
+				<ul class="keySkills">
+					<li th:each="skill : ${userProfile.skills}" th:text="${skill}">A Key Skill</li>
 				</ul>
 			</div>
 			<div class="clear"></div>
@@ -89,17 +89,12 @@
 			</div>
 			
 			<div class="sectionContent">
-				<article>
-					<h2>College/University</h2>
-					<p class="subDetails">Qualification</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies massa et erat luctus hendrerit. Curabitur non consequat enim.</p>
+				<article th:each="education : ${userProfile.educationList}">
+					<h2 th:text="${education.collegeName}">College/University</h2>
+					<p class="subDetails"><span th:text="${education.qualification}">Qualification</span> - <span th:text="${#temporals.format(education.startDate, 'MMM-yyyy')}">Start Date</span> - <span th:text="${#temporals.format(education.startDate, 'MMM-yyyy')}">END Date</span> </p>
+					<p th:text="${education.description}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies massa et erat luctus hendrerit. Curabitur non consequat enim.</p>
 				</article>
-				
-				<article>
-					<h2>College/University</h2>
-					<p class="subDetails">Qualification</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies massa et erat luctus hendrerit. Curabitur non consequat enim.</p>
-				</article>
+
 			</div>
 			<div class="clear"></div>
 		</section>
