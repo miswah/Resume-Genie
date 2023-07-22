@@ -42,11 +42,14 @@ public class UserProfile {
     @JoinColumn(name = "experience_id")
     List<Experience> experienceList = new ArrayList<>();
 
+    @ElementCollection(targetClass = String.class)
+    List<String> skills = new ArrayList<>();
+
     //Constructors
     public UserProfile() {
     }
 
-    public UserProfile(int id, int selectedTemplate, String summary, String userName, String firstName, String lastName, String currentDesignation, String email, String phoneNumber, List<Experience> experienceList) {
+    public UserProfile(int id, int selectedTemplate, String summary, String userName, String firstName, String lastName, String currentDesignation, String email, String phoneNumber, List<Experience> experienceList, List<String> skills) {
         this.id = id;
         this.selectedTemplate = selectedTemplate;
         this.summary = summary;
@@ -57,6 +60,7 @@ public class UserProfile {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.experienceList = experienceList;
+        this.skills = skills;
     }
 
     //Getters and Setters
@@ -137,6 +141,14 @@ public class UserProfile {
         this.experienceList = experienceList;
     }
 
+    public List<String> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(List<String> skills) {
+        this.skills = skills;
+    }
+
     @Override
     public String toString() {
         return "UserProfile{" +
@@ -149,7 +161,8 @@ public class UserProfile {
                 ", currentDesignation='" + currentDesignation + '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
-                ", experienceList=" + experienceList.toString() +
+                ", experienceList=" + experienceList +
+                ", skills=" + skills +
                 '}';
     }
 }

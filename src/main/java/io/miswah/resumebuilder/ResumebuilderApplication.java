@@ -35,7 +35,17 @@ public class ResumebuilderApplication {
 		experienceList.add(exp1);
 		experienceList.add(exp2);
 
-		UserProfile userProfile = new UserProfile(1, 1, "Audire eruditi sadipscing leo eleifend. Saepe appetere convallis ocurreret saepe. Aenean dicam efficiantur verterem principes. Nec primis himenaeos platonem sea causae veniam. Augue errem novum vidisse percipit cum volutpat conubia. Nulla cu qualisque reque quaeque. Dictum suscipiantur suas dolor ubique prompta atqui finibus. Congue ipsum consectetuer etiam quaeque erat utroque sed. Urna turpis ceteros conubia egestas. Voluptaria litora quas nisi ullamcorper", "adam", "Adam", "Jesus", "Flying Monster", "walkonwater@gmail.com", "+919876543210", experienceList);
+		ArrayList<String> skills = new ArrayList<>();
+
+		skills.add("Typing");
+		skills.add("Speaking");
+		skills.add("Excel");
+		skills.add("JS");
+		skills.add("CSS");
+		skills.add("HTML");
+		skills.add("Angular");
+
+		UserProfile userProfile = new UserProfile(1, 1, "Audire eruditi sadipscing leo eleifend. Saepe appetere convallis ocurreret saepe. Aenean dicam efficiantur verterem principes. Nec primis himenaeos platonem sea causae veniam. Augue errem novum vidisse percipit cum volutpat conubia. Nulla cu qualisque reque quaeque. Dictum suscipiantur suas dolor ubique prompta atqui finibus. Congue ipsum consectetuer etiam quaeque erat utroque sed. Urna turpis ceteros conubia egestas. Voluptaria litora quas nisi ullamcorper", "adam", "Adam", "Jesus", "Flying Monster", "walkonwater@gmail.com", "+919876543210", experienceList, skills);
 
 		userProfileRepository.save(userProfile);
 		System.out.println("Data has been seeded for user "+ userProfile.getUserName());
