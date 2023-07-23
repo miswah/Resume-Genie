@@ -73,6 +73,9 @@ public class UserProfile {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getSelectedTemplate() {
         return selectedTemplate;
