@@ -40,7 +40,7 @@ public class AppController {
         UserProfile savedUserProfile = getUserProfile(principal.getName());
         userProfile.setId(savedUserProfile.getId());
         userProfile.setUserName(savedUserProfile.getUserName());
-        userProfile.setSelectedTemplate(savedUserProfile.getSelectedTemplate());
+//        userProfile.setSelectedTemplate(savedUserProfile.getSelectedTemplate());
         userProfileRepository.save(userProfile);
         System.out.println("Save updated data for user "+ userProfile.getUserName());
         return "redirect:/view/"+principal.getName();

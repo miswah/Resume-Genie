@@ -111,6 +111,17 @@
                     </div>
                 </div>
 
+                <h2 class="lead mb-3">Select Template</h2>
+<!--                TODO : Create Cards with images and details for tempaltes probably create a class to maintain details-->
+                <input type="hidden" id="selectedTemplate" th:field="*{selectedTemplate}" />
+                <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                    <div class="btn-group me-2 text-center" role="group" aria-label="First group">
+                        <button type="button" class="btn btn-primary" onclick="changeUserStatus(1)">1</button>
+                        <button type="button" class="btn btn-primary" onclick="changeUserStatus(2)">2</button>
+                        <button type="button" class="btn btn-primary" onclick="changeUserStatus(4)">3</button>
+                    </div>
+                </div>
+
 
         <div class="text-center mb-2">
                 <button type="submit" class="btn btn-success">Save</button>
@@ -119,5 +130,12 @@
         </div>
         </div>
     </form>
+
+
+    <script th:inline="javascript">
+    function changeUserStatus(statusValue) {
+        document.getElementById('selectedTemplate').value = statusValue;
+    }
+</script>
 </body>
 </html>
