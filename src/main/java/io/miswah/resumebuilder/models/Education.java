@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 @Table(name = "eduction")
@@ -102,5 +103,17 @@ public class Education {
                 ", endDate=" + endDate +
                 ", description='" + description + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Education education)) return false;
+        return getId() == education.getId() && Objects.equals(getCollegeName(), education.getCollegeName()) && Objects.equals(getQualification(), education.getQualification()) && Objects.equals(getStartDate(), education.getStartDate()) && Objects.equals(getEndDate(), education.getEndDate()) && Objects.equals(getDescription(), education.getDescription());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getCollegeName(), getQualification(), getStartDate(), getEndDate(), getDescription());
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -35,9 +36,13 @@ public class AppController {
     }
 
     @PostMapping("/edit")
-    public String postEdit(Model mode, Principal principal){
-
-
+    public String postEdit(Model mode, Principal principal, @ModelAttribute UserProfile userProfile){
+        UserProfile savedUserProfile = getUserProfile(principal.getName());
+        userProfile.setId(savedUserProfile.getId());
+        userProfile.setUserName(savedUserProfile.getUserName());
+        userProfile.setSelectedTemplate(savedUserProfile.getSelectedTemplate());
+        userProfileRepository.save(userProfile);
+        System.out.println("Save updated data for user "+ userProfile.getUserName());
         return "redirect:/view/"+principal.getName();
     }
 

@@ -38,14 +38,14 @@ public class UserProfile {
     @Column(name = "phone")
     private String phoneNumber;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH}, orphanRemoval = true)
     @JoinColumn(name = "experience_id")
     List<Experience> experienceList = new ArrayList<>();
 
     @ElementCollection(targetClass = String.class)
     List<String> skills = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH}, orphanRemoval = true)
     @JoinColumn(name = "eduction_id")
     List<Education> educationList = new ArrayList<>();
 

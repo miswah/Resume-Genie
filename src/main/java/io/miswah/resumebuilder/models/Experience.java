@@ -1,12 +1,10 @@
 package io.miswah.resumebuilder.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 @Table(name = "experience")
@@ -14,6 +12,7 @@ public class Experience {
 
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "company")
@@ -116,5 +115,17 @@ public class Experience {
                 ", details='" + details + '\'' +
                 ", isCurrentJob=" + isCurrentJob +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Experience that)) return false;
+        return getId() == that.getId() && Objects.equals(getCompany(), that.getCompany()) && Objects.equals(getDesignation(), that.getDesignation()) && Objects.equals(getStartDate(), that.getStartDate()) && Objects.equals(getEndDate(), that.getEndDate()) && Objects.equals(getDetails(), that.getDetails()) && Objects.equals(getIsCurrentJob(), that.getIsCurrentJob());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getCompany(), getDesignation(), getStartDate(), getEndDate(), getDetails(), getIsCurrentJob());
     }
 }
