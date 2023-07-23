@@ -18,9 +18,9 @@
 
 
     <form action="#" th:action="@{/edit}" th:object="${userProfile}" method="post">
+        <div class="container">
         <div class="row">
-            <div class="col-lg-2 col-md-1 col-sm-0"></div>
-            <div class="col-lg-8 col-md-10 col-sm-12 text-center">
+            <div class="col-12 text-center">
                 <div class="input-group">
                     <span class="input-group-text">First and last name</span>
                     <input type="text" aria-label="First name" class="form-control" th:field="*{firstName}">
@@ -42,14 +42,82 @@
                     <input type="text" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="email" th:field="*{email}">
                 </div>
 
-                <div class="input-group">
+                <div class="input-group mb-3">
                     <span class="input-group-text" id="Phone"><i class="bi bi-telephone-fill"> Phone</i></span>
                     <input type="text" class="form-control" placeholder="Phone" aria-label="Phone" aria-describedby="phone" th:field="*{phoneNumber}">
                 </div>
-            </div>
-            <div class="col-lg-2 col-md-1 col-sm-0"></div>
-        </div>
 
+                <h2 class="lead mb-3">Experiences</h2>
+                <div class="table-responsive mb-3">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Company Name</th>
+                            <th scope="col">Designation</th>
+                            <th scope="col">Start Date</th>
+                            <th scope="col">End Date</th>
+                            <th scope="col">Details</th>
+                            <th scope="col">Current Job</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="exp, stats : *{experienceList}">
+                            <th scope="row" th:text="${stats.index + 1}">1</th>
+                            <td><input th:field="*{experienceList[__${stats.index}__].company}"></td>
+                            <td><input th:field="*{experienceList[__${stats.index}__].designation}"></td>
+                            <td><input type="date" th:field="*{experienceList[__${stats.index}__].startDate}"></td>
+                            <td><input type="date" th:field="*{experienceList[__${stats.index}__].endDate}"></td>
+                            <td><textarea th:field="*{experienceList[__${stats.index}__].details}"> </textarea></td>
+                            <td><input type="checkbox"  th:field="*{experienceList[__${stats.index}__].isCurrentJob}"></td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2 class="lead mb-3">Education</h2>
+                <div class="table-responsive mb-3">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">College Name</th>
+                            <th scope="col">Qualification</th>
+                            <th scope="col">Start Date</th>
+                            <th scope="col">End Date</th>
+                            <th scope="col">Details</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="edu, stats : *{educationList}">
+                            <th scope="row" th:text="${stats.index + 1}">1</th>
+                            <td><input th:field="*{educationList[__${stats.index}__].collegeName}"></td>
+                            <td><input th:field="*{educationList[__${stats.index}__].qualification}"></td>
+                            <td><input type="date" th:field="*{educationList[__${stats.index}__].startDate}"></td>
+                            <td><input type="date" th:field="*{educationList[__${stats.index}__].endDate}"></td>
+                            <td><textarea th:field="*{educationList[__${stats.index}__].description}"> </textarea></td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2 class="lead mb-3">Skills</h2>
+                <div class="row">
+                    <div class="col-4" th:each="skill, stats : *{skills}">
+                        <input type="text" class="mb-2" th:field="*{skills[__${stats.index}__]}">
+                    </div>
+                </div>
+
+
+        <div class="text-center mb-2">
+                <button type="submit" class="btn btn-success">Save</button>
+            </div>
+            </div>
+        </div>
+        </div>
     </form>
 </body>
 </html>
