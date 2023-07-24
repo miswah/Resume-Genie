@@ -1,17 +1,17 @@
 package io.miswah.resumebuilder.controller;
 
 
+import io.miswah.resumebuilder.models.Education;
+import io.miswah.resumebuilder.models.Experience;
 import io.miswah.resumebuilder.models.UserProfile;
 import io.miswah.resumebuilder.repository.UserProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -35,12 +35,39 @@ public class AppController {
         return "profile-edit";
     }
 
+    @PostMapping("/save")
+    public String save(Model model, Principal principal, @ModelAttribute UserProfile userProfile, @RequestParam(required = false) String add){
+        UserProfile savedUserProfile = getUserProfile(principal.getName());
+        userProfile.setId(savedUserProfile.getId());
+        userProfile.setUserName(savedUserProfile.getUserName());
+
+        //Remove empty skills
+        userProfile.getSkills().removeIf(String::isEmpty);
+        //remove empty education
+        userProfile.getEducationList().removeIf(Education::isEmpty);
+        //remove empty experience
+        userProfile.getExperienceList().removeIf(Experience::isEmpty);
+
+        if("experience".equalsIgnoreCase(add)){
+            userProfile.getExperienceList().add(new Experience());
+        } else if ("education".equalsIgnoreCase(add)){
+            userProfile.getEducationList().add(new Education());
+        } else if ("skill".equalsIgnoreCase(add)){
+            userProfile.getSkills().add("");
+        }
+
+        userProfileRepository.save(userProfile);
+        System.out.println("Save updated data for user "+ userProfile.getUserName());
+
+        return "redirect:/edit";
+    }
+
     @PostMapping("/edit")
     public String postEdit(Model mode, Principal principal, @ModelAttribute UserProfile userProfile){
         UserProfile savedUserProfile = getUserProfile(principal.getName());
         userProfile.setId(savedUserProfile.getId());
         userProfile.setUserName(savedUserProfile.getUserName());
-//        userProfile.setSelectedTemplate(savedUserProfile.getSelectedTemplate());
+
         userProfileRepository.save(userProfile);
         System.out.println("Save updated data for user "+ userProfile.getUserName());
         return "redirect:/view/"+principal.getName();
@@ -66,5 +93,13 @@ public class AppController {
         return userProfile.get();
     }
 
+    private static void removeEmptyEducation(List<Education> list) {
+        // Define your condition here to check if the object is empty
+        list.removeIf(Education::isEmpty);
+    }
 
+    private static void removeEmptyExperience(List<Experience> list) {
+        // Define your condition here to check if the object is empty
+        list.removeIf(Experience::isEmpty);
+    }
 }

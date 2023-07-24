@@ -17,7 +17,7 @@
 
 
 
-    <form action="#" th:action="@{/edit}" th:object="${userProfile}" method="post">
+    <form action="#" th:action="@{/edit}" th:object="${userProfile}" method="post" id="form">
         <div class="container">
         <div class="row">
             <div class="col-12 text-center">
@@ -76,6 +76,8 @@
                         </tbody>
                     </table>
                 </div>
+                <button type="button" onclick="setParamsAndSubmit('experience')" class="btn btn-success mb-2">Add Experience</button>
+
 
                 <h2 class="lead mb-3">Education</h2>
                 <div class="table-responsive mb-3">
@@ -103,13 +105,15 @@
                         </tbody>
                     </table>
                 </div>
-
+                <button type="button" onclick="setParamsAndSubmit('education')" class="btn btn-success mb-2">Add Education</button>
                 <h2 class="lead mb-3">Skills</h2>
                 <div class="row">
                     <div class="col-4" th:each="skill, stats : *{skills}">
                         <input type="text" class="mb-2" th:field="*{skills[__${stats.index}__]}">
                     </div>
                 </div>
+<!--                <p><a href="./save?add=skill" type="submit">Add Skill</a></p>-->
+                <button type="button" onclick="setParamsAndSubmit('skill')" class="btn btn-success mb-2">Add Skill</button>
 
                 <h2 class="lead mb-3">Select Template</h2>
 <!--                TODO : Create Cards with images and details for tempaltes probably create a class to maintain details-->
@@ -137,5 +141,16 @@
         document.getElementById('selectedTemplate').value = statusValue;
     }
 </script>
+
+    <script th:inline="javascript">
+         function setParamsAndSubmit(param) {
+            var form = document.getElementById('form');
+            // Update the form action URL with the new query parameters
+            form.action = '/save?add=' + param;
+
+            // Submit the form
+            form.submit();
+        }
+    </script>
 </body>
 </html>

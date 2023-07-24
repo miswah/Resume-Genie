@@ -116,4 +116,9 @@ public class Education {
     public int hashCode() {
         return Objects.hash(getId(), getCollegeName(), getQualification(), getStartDate(), getEndDate(), getDescription());
     }
+
+    public boolean isEmpty() {
+        // Define your condition to check if the object is considered empty
+        return getCollegeName().isEmpty() && getDescription().isEmpty()&& getQualification().isEmpty();
+    }
 }

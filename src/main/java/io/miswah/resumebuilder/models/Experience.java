@@ -128,4 +128,9 @@ public class Experience {
     public int hashCode() {
         return Objects.hash(getId(), getCompany(), getDesignation(), getStartDate(), getEndDate(), getDetails(), getIsCurrentJob());
     }
+
+    public boolean isEmpty() {
+        // Define your condition to check if the object is considered empty
+        return getCompany().isEmpty() && getDesignation().isEmpty() && getDetails().isEmpty();
+    }
 }
