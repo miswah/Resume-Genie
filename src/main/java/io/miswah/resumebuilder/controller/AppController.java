@@ -62,6 +62,24 @@ public class AppController {
         return "redirect:/edit";
     }
 
+    @GetMapping("/delete")
+    public String delete(Model model, Principal principal, @RequestParam String type, @RequestParam int index){
+        UserProfile userProfile = getUserProfile(principal.getName());
+        if("experience".equalsIgnoreCase(type)){
+            userProfile.getExperienceList().remove(index);
+        } else if ("education".equalsIgnoreCase(type)){
+            userProfile.getEducationList().remove(index);
+        } else if ("skill".equalsIgnoreCase(type)){
+            userProfile.getSkills().remove(index);
+        }
+
+        userProfileRepository.save(userProfile);
+        System.out.println("Deleted "+type+" for user"+ userProfile.getUserName());
+
+        return "redirect:/edit";
+
+    }
+
     @PostMapping("/edit")
     public String postEdit(Model mode, Principal principal, @ModelAttribute UserProfile userProfile){
         UserProfile savedUserProfile = getUserProfile(principal.getName());

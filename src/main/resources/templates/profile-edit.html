@@ -12,7 +12,7 @@
         }
     </style>
 </head>
-<body data-bs-theme="dark">
+<body data-bs-theme="dark" onload="restoreScrollPosition()">
     <h2 th:text="${userId} + '\'s Profile'">Profile</h2>
 
 
@@ -59,6 +59,7 @@
                             <th scope="col">End Date</th>
                             <th scope="col">Details</th>
                             <th scope="col">Current Job</th>
+                            <th scope="col">Action</th>
 
                         </tr>
                         </thead>
@@ -71,6 +72,7 @@
                             <td><input type="date" th:field="*{experienceList[__${stats.index}__].endDate}"></td>
                             <td><textarea th:field="*{experienceList[__${stats.index}__].details}"> </textarea></td>
                             <td><input type="checkbox"  th:field="*{experienceList[__${stats.index}__].isCurrentJob}"></td>
+                            <td><a th:href="@{'./delete?type=experience&index='+${stats.index}}">Delete</a></td>
                         </tr>
 
                         </tbody>
@@ -90,6 +92,7 @@
                             <th scope="col">Start Date</th>
                             <th scope="col">End Date</th>
                             <th scope="col">Details</th>
+                            <th scope="col">Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -100,6 +103,7 @@
                             <td><input type="date" th:field="*{educationList[__${stats.index}__].startDate}"></td>
                             <td><input type="date" th:field="*{educationList[__${stats.index}__].endDate}"></td>
                             <td><textarea th:field="*{educationList[__${stats.index}__].description}"> </textarea></td>
+                            <td><a th:href="@{'./delete?type=education&index='+${stats.index}}">Delete</a></td>
                         </tr>
 
                         </tbody>
@@ -112,6 +116,7 @@
                         <input type="text" class="mb-2" th:field="*{skills[__${stats.index}__]}">
                     </div>
                 </div>
+
 <!--                <p><a href="./save?add=skill" type="submit">Add Skill</a></p>-->
                 <button type="button" onclick="setParamsAndSubmit('skill')" class="btn btn-success mb-2">Add Skill</button>
 
@@ -144,13 +149,34 @@
 
     <script th:inline="javascript">
          function setParamsAndSubmit(param) {
+            //set scroll position
+            storeScrollPosition();
+
             var form = document.getElementById('form');
             // Update the form action URL with the new query parameters
             form.action = '/save?add=' + param;
 
             // Submit the form
             form.submit();
+
+        }
+
+         // Function to store the scroll position in localStorage
+        function storeScrollPosition() {
+            localStorage.setItem('scrollPosition', window.scrollY);
+        }
+
+        // Function to restore the scroll position from localStorage
+        function restoreScrollPosition() {
+            var scrollPosition = localStorage.getItem('scrollPosition');
+            if (scrollPosition !== null) {
+                window.scrollTo(0, scrollPosition);
+                // After restoring, remove the stored scroll position
+                localStorage.removeItem('scrollPosition');
+            }
         }
     </script>
+
+
 </body>
 </html>
