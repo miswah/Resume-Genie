@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
 <title th:text="${userProfile.firstName} + ' ' + ${userProfile.lastName}+ ' - Curriculum Vitae' ">Joe Bloggs - Curriculum Vitae</title>
 
@@ -16,13 +16,14 @@
 </head>
 <body id="top">
 <div id="cv" class="instaFade">
+	<p style="text-align:center; margin:0px" sec:authorize="isAnonymous()">To Edit this resume please <a href="/edit">Login</a></p>
 	<div class="mainDetails">
 		<div id="headshot" class="quickFade">
 			<img src="../resume-resources/1/headshot.jpg" alt="Alan Smith" />
 		</div>
 		
 		<div id="name">
-			<h1 class="quickFade delayTwo"> <span th:text="${userProfile.firstName}"></span> <span th:text="${userProfile.lastName}">Jhon Doe</span> </h1>
+			<h1 class="quickFade delayTwo"> <span th:text="${userProfile.firstName}"></span> <span th:text="${userProfile.lastName}">Jhon Doe</span> <a href="/edit" sec:authorize="isAuthenticated()">Edit</a> </h1>
 			<h2 class="quickFade delayThree" th:text="${userProfile.currentDesignation}">Ghost buster</h2>
 		</div>
 		
