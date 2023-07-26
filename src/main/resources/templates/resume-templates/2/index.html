@@ -1,12 +1,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 
 <head>
      <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-     <title>One Page Resume</title>
+     <title th:text="${userProfile.firstName} + ' ' + ${userProfile.lastName}+ ' - Curriculum Vitae' ">One Page Resume</title>
 
      <style type="text/css">
         * { margin: 0; padding: 0; }
@@ -39,16 +39,16 @@
         
             <!-- Microformats! -->
         
-            <h1 class="fn">C'thulhu</h1>
+            <h1 class="fn"> <span th:text="${userProfile.firstName}"></span> <span th:text="${userProfile.lastName}">Jhon Doe</h1>
         
             <p>
-                Cell: <span class="tel">555-666-7777</span><br />
-                Email: <a class="email" href="mailto:greatoldone@lovecraft.com">greatoldone@lovecraft.com</a>
+                Cell: <span th:text="${userProfile.phoneNumber}" class="tel">0123456789</span><br />
+                Email: <a th:href="'mailto:'+ ${userProfile.email}" target="_blank"><span th:text="${userProfile.email}">jhondoe@doe.com</span></a>
             </p>
         </div>
                 
         <div id="objective">
-            <p>
+            <p th:text="${userProfile.summary}">
                 I am an outgoing and energetic (ask anybody) young professional, seeking a 
                 career that fits my professional skills, personality, and murderous tendencies. 
                 My squid-like head is a masterful problem solver and inspires fear in who gaze upon it. 
@@ -62,53 +62,41 @@
             <dd class="clear"></dd>
             
             <dt>Education</dt>
-            <dd>
-                <h2>Withering Madness University - Planet Vhoorl</h2>
-                <p><strong>Major:</strong> Public Relations<br />
-                   <strong>Minor:</strong> Scale Tending</p>
+            <dd th:each="education : ${userProfile.educationList}">
+                <h2 th:text="${education.collegeName}">Withering Madness University - Planet Vhoorl</h2>
+                <p><strong th:text="${education.qualification}">Major:</strong> - <span th:text="${#temporals.format(education.startDate, 'MMM-yyyy')}">Start Date</span> - <span th:text="${#temporals.format(education.startDate, 'MMM-yyyy')}">END Date</span><br />
+                </p>
+                <p th:text="${education.description}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies massa et erat luctus hendrerit. Curabitur non consequat enim.</p>
             </dd>
             
             <dd class="clear"></dd>
             
-            <dt>Skills</dt>
-            <dd>
-                <h2>Office skills</h2>
-                <p>Office and records management, database administration, event organization, customer support, travel coordination</p>
-                
-                <h2>Computer skills</h2>
-                <p>Microsoft productivity software (Word, Excel, etc), Adobe Creative Suite, Windows</p>
-            </dd>
-            
-            <dd class="clear"></dd>
+
             
             <dt>Experience</dt>
-            <dd>
-                <h2>Doomsday Cult <span>Leader/Overlord - Baton Rogue, LA - 1926-2010</span></h2>
-                <ul>
-                    <li>Inspired and won highest peasant death competition among servants</li>
-                    <li>Helped coordinate managers to grow cult following</li>
-                    <li>Provided untimely deaths to all who opposed</li>
-                </ul>
-                
-                <h2>The Watering Hole <span>Bartender/Server - Milwaukee, WI - 2009</span></h2>
-                <ul>
-                    <li>Worked on grass-roots promotional campaigns</li>
-                    <li>Reduced theft and property damage percentages</li>
-                    <li>Janitorial work, Laundry</li>
-                </ul> 
+            <dd  th:each="experience : ${userProfile.experienceList}">
+                <h2> <i th:text="${experience.company}">Company</i> <span><i th:text="${experience.designation}">Job Title</i> - <i th:text="${#temporals.format(experience.startDate, 'MMM-yyyy')}">start Date</i> -  <i th:text="${experience.isCurrentJob} ? 'Present' : ${#temporals.format(experience.endDate, 'MMM-yyyy')}">End Date</i></span></h2>
+                <p th:text="${experience.details}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies massa et erat luctus hendrerit. Curabitur non consequat enim. Vestibulum bibendum mattis dignissim. Proin id sapien quis libero interdum porttitor.</p>
             </dd>
             
             <dd class="clear"></dd>
-            
-            <dt>Hobbies</dt>
-            <dd>World Domination, Deep Sea Diving, Murder Most Foul</dd>
-            
+
+            <dt>Skills</dt>
+            <dd>
+                <span th:each="skill : ${userProfile.skills}" th:text="${skill}" style="margin: 5px">Office skills</span>
+            </dd>
+
             <dd class="clear"></dd>
             
-            <dt>References</dt>
-            <dd>Available on request</dd>
-            
-            <dd class="clear"></dd>
+<!--            <dt>Hobbies</dt>-->
+<!--            <dd>World Domination, Deep Sea Diving, Murder Most Foul</dd>-->
+<!--            -->
+<!--            <dd class="clear"></dd>-->
+<!--            -->
+<!--            <dt>References</dt>-->
+<!--            <dd>Available on request</dd>-->
+<!--            -->
+<!--            <dd class="clear"></dd>-->
         </dl>
         
         <div class="clear"></div>
