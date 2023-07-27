@@ -5,11 +5,92 @@
     <title>Profile</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.5.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
     <style>
         .input-group{
         margin-top: 10px;
         }
+        .cards-list {
+  z-index: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.card {
+  margin: 30px auto;
+  width: 300px;
+  height: 300px;
+  border-radius: 40px;
+box-shadow: 5px 5px 30px 7px rgba(0,0,0,0.25), -5px -5px 30px 7px rgba(0,0,0,0.22);
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+.card .card_image {
+  width: inherit;
+  height: inherit;
+  border-radius: 40px;
+}
+
+.card .card_image img {
+  width: inherit;
+  height: inherit;
+  border-radius: 40px;
+  object-fit: cover;
+}
+
+.card .card_title {
+  text-align: center;
+  border-radius: 0px 0px 40px 40px;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 30px;
+  margin-top: -80px;
+  height: 40px;
+}
+
+.card:hover {
+  transform: scale(0.9, 0.9);
+  box-shadow: 5px 5px 30px 15px rgba(0,0,0,0.25),
+    -5px -5px 30px 15px rgba(0,0,0,0.22);
+}
+
+.title-white {
+  color: white;
+}
+
+.title-black {
+  color: black;
+}
+
+@media all and (max-width: 500px) {
+  .card-list {
+    /* On small screens, we are no longer using row direction but column */
+    flex-direction: column;
+  }
+}
+
+
+/*
+.card {
+  margin: 30px auto;
+  width: 300px;
+  height: 300px;
+  border-radius: 40px;
+  background-image: url('https://i.redd.it/b3esnz5ra34y.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-repeat: no-repeat;
+box-shadow: 5px 5px 30px 7px rgba(0,0,0,0.25), -5px -5px 30px 7px rgba(0,0,0,0.22);
+  transition: 0.4s;
+}
+*/
     </style>
 </head>
 <body data-bs-theme="dark" onload="restoreScrollPosition()">
@@ -121,13 +202,32 @@
                 <button type="button" onclick="setParamsAndSubmit('skill')" class="btn btn-success mb-2">Add Skill</button>
 
                 <h2 class="lead mb-3">Select Template</h2>
-<!--                TODO : Create Cards with images and details for tempaltes probably create a class to maintain details-->
-                <input type="hidden" id="selectedTemplate" th:field="*{selectedTemplate}" />
-                <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                    <div class="btn-group me-2 text-center" role="group" aria-label="First group">
-                        <button type="button" class="btn btn-primary" onclick="changeUserStatus(1)">1</button>
-                        <button type="button" class="btn btn-primary" onclick="changeUserStatus(2)">2</button>
-                        <button type="button" class="btn btn-primary" onclick="changeUserStatus(3)">3</button>
+
+                <input type="hidden" id="selectedTemplateId" th:field="*{selectedTemplate}">
+
+
+
+                <div class="cards-list">
+
+                    <div class="card 1 selectTemplate" data-bs-toggle="modal" data-bs-target="#cardModal" data-title="Card 2" data-img="../img/template3.png" onclick="changeModalData('Template 1', '../img/template1.png', 1)" >
+                        <div class="card_image"> <img src="../img/template1.png" /> </div>
+                        <div class="card_title title-white">
+                            <p style="color: black">Template 1</p>
+                        </div>
+                    </div>
+
+                    <div class="card 1 selectTemplate" data-bs-toggle="modal" data-bs-target="#cardModal" data-title="Card 2" data-img="../img/template2.png" onclick="changeModalData('Template 2', '../img/template2.png', 2)"  >
+                        <div class="card_image"> <img src="../img/template2.png" /> </div>
+                        <div class="card_title title-white">
+                            <p style="color: black">Template 2</p>
+                        </div>
+                    </div>
+
+                    <div class="card 1 selectTemplate" data-bs-toggle="modal" data-bs-target="#cardModal" data-title="Card 2" data-img="../img/template3.png"  onclick="changeModalData('Template 3', '../img/template3.png', 3)" >
+                        <div class="card_image"> <img src="../img/template3.png" /> </div>
+                        <div class="card_title title-white">
+                            <p style="color: black">Template 3</p>
+                        </div>
                     </div>
                 </div>
 
@@ -141,9 +241,40 @@
     </form>
 
 
+    <!-- Modal for expanded card -->
+    <div class="modal fade" id="cardModal" tabindex="-1" role="dialog" aria-labelledby="cardModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center" id="cardModalLabel">Template</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img src="" class="img-fluid" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <input type="hidden" id="templateId">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="changeUserStatus()">Save</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <script th:inline="javascript">
-    function changeUserStatus(statusValue) {
-        document.getElementById('selectedTemplate').value = statusValue;
+    function changeUserStatus() {
+        document.getElementById('selectedTemplateId').value = document.querySelector('#templateId').value;
+    }
+
+    card = document.querySelector(".card");
+    card.onClick = changeModalData();
+
+    function changeModalData(title, img, index){
+       document.querySelector('#templateId').value= index;
+       document.querySelector('#cardModalLabel').innerHTML= title;
+       document.querySelector('.img-fluid').src=img;
     }
 </script>
 
@@ -176,6 +307,10 @@
             }
         }
     </script>
+
+    <!-- Include Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.5.3/js/bootstrap.bundle.min.js"></script>
+
 
 
 </body>
