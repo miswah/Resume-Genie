@@ -13,7 +13,7 @@ public class User {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "user_name")
+    @Column(name = "user_name", unique = true)
     private String userName;
 
     @Column(name="password")
@@ -25,16 +25,20 @@ public class User {
     @Column(name = "roles")
     private String roles;
 
+    @Column(name="email", unique = true)
+    private String email;
+
 
     //Constructors
     public User() {
     }
 
-    public User(String userName, String password, boolean active, String roles) {
+    public User(String userName, String password, boolean active, String roles, String email) {
         this.userName = userName;
         this.password = password;
         this.active = active;
         this.roles = roles;
+        this.email = email;
     }
 
     //Getters and Setters
@@ -73,5 +77,13 @@ public class User {
 
     public void setRoles(String roles) {
         this.roles = roles;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
