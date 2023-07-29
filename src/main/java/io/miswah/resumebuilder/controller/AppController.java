@@ -21,9 +21,14 @@ public class AppController {
     @Autowired
     UserProfileRepository userProfileRepository;
 
-    @GetMapping("/home")
+    @GetMapping("/")
     public String home(){
-        return "Hello Home";
+        return "redirect:/home";
+    }
+
+    @GetMapping("/home")
+    public String getHome(){
+        return "home";
     }
 
 
