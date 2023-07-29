@@ -1,13 +1,19 @@
 package io.miswah.resumebuilder.controller;
 
 
+import io.miswah.resumebuilder.dto.SignupDTO;
 import io.miswah.resumebuilder.models.Education;
 import io.miswah.resumebuilder.models.Experience;
+import io.miswah.resumebuilder.models.User;
 import io.miswah.resumebuilder.models.UserProfile;
 import io.miswah.resumebuilder.repository.UserProfileRepository;
+import io.miswah.resumebuilder.repository.UserRepository;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -21,6 +27,9 @@ public class AppController {
     @Autowired
     UserProfileRepository userProfileRepository;
 
+    @Autowired
+    UserRepository userRepository;
+
     @GetMapping("/")
     public String home(){
         return "redirect:/home";
@@ -31,6 +40,26 @@ public class AppController {
         return "home";
     }
 
+    @GetMapping("/signup")
+    public String signup(Model model) {
+        SignupDTO newUser = new SignupDTO();
+        model.addAttribute("user", newUser);
+        return "signup";
+    }
+
+
+    @PostMapping("/signup")
+    public String registerUserAccount(
+            @ModelAttribute("user") @Valid SignupDTO userDto,
+            HttpServletRequest request,
+            Errors errors) {
+
+        User newUser = new User(userDto.getUserName(), userDto.getPassword(), true, "USER", userDto.getEmail());
+
+        userRepository.save(newUser);
+
+        return "redirect:/login";
+    }
 
     @GetMapping("/edit")
     public String edit(Model model, Principal principal){
