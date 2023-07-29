@@ -140,9 +140,8 @@ public class AppController {
     private UserProfile getUserProfile (String userId){
         Optional<UserProfile> userProfile = userProfileRepository.findByUserName(userId);
 
-        userProfile.orElseThrow(RuntimeException::new);
+        return userProfile.orElseGet(UserProfile::new);
 
-        return userProfile.get();
     }
 
     private static void removeEmptyEducation(List<Education> list) {
