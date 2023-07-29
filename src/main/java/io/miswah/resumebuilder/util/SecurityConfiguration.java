@@ -23,6 +23,9 @@ public class SecurityConfiguration  {
                         .requestMatchers(new AntPathRequestMatcher("/view/**")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/resume-resources/**")).permitAll() //enable static resource access for resume-resources folder
                         .requestMatchers(new AntPathRequestMatcher("/error")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/home")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/home/**")).permitAll() // enable static resource access for home
                         .anyRequest().authenticated())
                 .formLogin(withDefaults());
 
