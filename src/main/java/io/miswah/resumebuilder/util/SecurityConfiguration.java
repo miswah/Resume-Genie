@@ -27,7 +27,7 @@ public class SecurityConfiguration  {
                         .requestMatchers(new AntPathRequestMatcher("/")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/home/**")).permitAll() // enable static resource access for home
                         .requestMatchers(new AntPathRequestMatcher("/signup")).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/download")).permitAll()
                         .anyRequest().authenticated())
                 .formLogin(withDefaults());
 
