@@ -63,6 +63,8 @@ These instructions will help you set up the project on your local machine for de
 
 4. Access the application:
    Open your web browser and go to http://localhost:8080 to use Resume Genie.
+   You can use the default account username : Adam | password : appl3; Dummy data is seed for this user using postConstruct on main
+   Additionally you can also signup
 
 ### Contributing
 
