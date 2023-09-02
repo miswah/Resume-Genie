@@ -58,7 +58,7 @@ public class AppController {
 
         userRepository.save(newUser);
 
-        return "redirect:/login";
+        return "redirect:/edit";
     }
 
     @GetMapping("/edit")
