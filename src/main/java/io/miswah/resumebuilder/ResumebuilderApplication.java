@@ -2,8 +2,10 @@ package io.miswah.resumebuilder;
 
 import io.miswah.resumebuilder.models.Education;
 import io.miswah.resumebuilder.models.Experience;
+import io.miswah.resumebuilder.models.User;
 import io.miswah.resumebuilder.models.UserProfile;
 import io.miswah.resumebuilder.repository.UserProfileRepository;
+import io.miswah.resumebuilder.repository.UserRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -18,6 +20,9 @@ public class ResumebuilderApplication {
 	@Autowired
 	public UserProfileRepository userProfileRepository;
 
+	@Autowired
+	UserRepository userRepository;
+
 	public static void main(String[] args) {
 		SpringApplication.run(ResumebuilderApplication.class, args);
 	}
@@ -25,6 +30,12 @@ public class ResumebuilderApplication {
 
 	@PostConstruct
 	private void feedUserData(){
+		System.out.println("seeding Data for user Account");
+		User newUser = new User("Adam", "appl3", true, "USER", "adam@apple.com");
+
+		userRepository.save(newUser);
+
+		System.out.println("Seeded Data for adam User");
 
 		System.out.println("seeding Data for user Profile");
 
